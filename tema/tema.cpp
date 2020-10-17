@@ -5,8 +5,7 @@ using namespace std;
 ifstream input("tema.in");
 ofstream output("tema.out");
 
-int numberStudents;
-int students[100] = {};
+int numberStudents, students[100] = {};
 
 void read()
 {
