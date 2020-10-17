@@ -5,7 +5,7 @@ using namespace std;
 ifstream input("psp.in");
 ofstream output("psp.out");
 
-int numberOfGames, sizePSP, gamesInstalled;
+int nrGames, sizePSP, gamesInstalled;
 
 void processSizeGame(int sizeGame)
 {
@@ -21,8 +21,8 @@ void read()
 {
     int  sizeGame;
 
-    input >> numberOfGames >> sizePSP;
-    for(int i = 0; i < numberOfGames; i++)
+    input >> nrGames >> sizePSP;
+    for(int i = 0; i < nrGames; i++)
     {
         input >> sizeGame;
         processSizeGame(sizeGame);
