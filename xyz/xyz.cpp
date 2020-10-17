@@ -4,6 +4,7 @@ using namespace std;
 
 ifstream input("xyz.in");
 ofstream output("xyz.out");
+
 int x, y, z;
 
 void read()
