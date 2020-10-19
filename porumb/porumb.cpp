@@ -5,40 +5,35 @@ using namespace std;
 ifstream input("porumb.in");
 ofstream output("porumb.out");
 
-int n, m, a, seconds, moves;
+int nrLines, initialPosition, seconds, moves;
 
-void processSeconds()
+void moveDestroyer()
 {
-	seconds = seconds + a + 1;
+	if (initialPosition > nrLines / 2)
+	{
+		moves = nrLines - initialPosition;
+	}
+	else
+	{
+		moves = initialPosition - 1;
+	}
 }
 
-void processCorns()
+void calculateTime(int n)
 {
-	if (n == m || n - m == n - 1)
-	{
-		processSeconds();
-	}
-
-	else if (m >= n / 2)
-	{
-		moves = n - m;
-		processSeconds();
-	}
-
-	else if (m < n / 2)
-	{
-		moves = m - 1;
-		processSeconds();
-	}
+	seconds += n + 1;
 }
 
 void read()
 {
-	input >> n >> m;
-	for (int i = 1; i <= n; i++)
+	input >> nrLines >> initialPosition;
+	moveDestroyer();
+
+	int nrCornsPerLine;
+	for (int i = 1; i <= nrLines; i++)
 	{
-		input >> a;
-		processCorns();
+		input >> nrCornsPerLine;
+		calculateTime(nrCornsPerLine);
 	}
 
 	input.close();
@@ -46,7 +41,7 @@ void read()
 
 void write()
 {
-	output << seconds - 1 + moves;
+	output << seconds + moves - 1;
 
 	output.close();
 }
