@@ -5,53 +5,54 @@ using namespace std;
 ifstream input("fazanr.in");
 ofstream output("fazanr.out");
 
-int nrKids, carefulessKids, firstDigit, n[100] = {};
+int nrKids, nrCarefulessKids, firstDigit, n[100] = {};
 
 void read()
 {
-    input >> nrKids;
-    for (int i = 0; i < nrKids; i++)
-    {
-        input >> n[i];
-    }
+	input >> nrKids;
+	for (int i = 0; i < nrKids; i++)
+	{
+		input >> n[i];
+	}
 
-    input.close();
+	input.close();
 }
 
 int getFirstDigit(int number)
-{   
-    while (number > 10)
-    {
-        number /= 10;
-    }
+{
+	while (number >= 10)
+	{
+		number /= 10;
+	}
 
-    return number;
+	return number;
 }
 
-void processNumber()
+void calculateNrCarefulessKids()
 {
-    for (int i = 0; i < nrKids - 1; i++)
-    {
-        firstDigit = getFirstDigit(n[i+1]);
-        if (n[i] % 10 != firstDigit)
-        {
-            carefulessKids++;
-        }
-    }
+	for (int i = 0; i < nrKids - 1; i++)
+	{
+		firstDigit = getFirstDigit(n[i + 1]);
+
+		if (n[i] % 10 != firstDigit)
+		{
+			nrCarefulessKids++;
+		}
+	}
 }
 
 void write()
 {
-    output << carefulessKids;
+	output << nrCarefulessKids;
 
-    output.close();
+	output.close();
 }
 
 int main()
 {
-    read();
-    processNumber();
-    write();
+	read();
+	calculateNrCarefulessKids();
+	write();
 
-    return 0;
+	return 0;
 }
