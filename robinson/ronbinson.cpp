@@ -5,87 +5,65 @@ using namespace std;
 ifstream input("robinson.in");
 ofstream output("robinson.out");
 
-int m, n, a[21][21], i, j, north, south, east, west;
+int m, n, a[21][21], c, l;
 
-void verifyLastElementOfMatrix()
+void initializeFirstRowAndFirstColumn()
 {
-	if (a[m][m] > 999)
+	input >> m >> n >> l >> c;
+
+	for (int i = 1; i <= m; i++)
 	{
-		a[m][m] %= 1000;
+		a[i][1] = n + i - 1;
+		a[1][i] = n + i - 1;
 	}
 }
 
-void readMatrix()
+void initializeRestOfMatrix()
 {
-	input >> m >> n >> i >> j;
-	a[1][1] = n;
-	int k = 0;
-	int y = 0;
-
-	for (int i = 2; i < m + 1; i++)
+	for (int i = 2; i <= m; i++)
 	{
-		for (int j = 1; j <= 1; j++)
+		for (int j = 2; j <= m; j++)
 		{
-			k++;
-			a[i][j] = n + k;
+			a[i][j] = (a[i - 1][j] + a[i][j - 1]) % 1000;
 		}
 	}
-
-	for (int j = 2; j < m + 1; j++)
-	{
-		for (int i = 1; i <= 1; i++)
-		{
-			y++;
-			a[i][j] = n + y;
-		}
-	}
-
-	for (int i = 2; i < m + 1; i++)
-	{
-		for (int j = 2; j < m + 1; j++)
-		{
-			a[i][j] = a[i - 1][j] + a[i][j - 1];
-		}
-	}
-	verifyLastElementOfMatrix();
 }
 
-// void calculateMap()
-// {
+void calculateMap()
+{
+	int temp;
 
-// 	int position = a[i][j];
-// 	north = a[i - 1][j];
-// 	south = a[i + 2][j];
-// 	east = a[i][j + 1];
-// 	west = a[i][j - 1];
-	
-// 	{
-// 		switch (position % 4)
-// 		{
-// 		case 0:
-// 			position = north;
-// 			output << i << " " << j;
-// 			break;
-// 		case 1:
-// 			position = east;
-// 			output << i << " " << j;
-// 			break;
-// 		case 2:
-// 			position = south;
-// 			output << i << " " << j;
-// 			break;
-// 		case 3:
-// 			position = west;
-// 			output << i << " " << j;
-// 			break;
-// 		}
-// 	}
-// }
+	while (l <= m && l > 0 && c <= m && c > 0 && a[l][c] > 0)
+	{
+		output << l << " " << c << endl;
+
+		temp = a[l][c];
+		a[l][c] = -1;
+
+		switch (temp % 4)
+		{
+		case 0:
+			l--;
+			break;
+		case 1:
+			c++;
+			break;
+		case 2:
+			l++;
+			break;
+		case 3:
+			c--;
+			break;
+		}
+	}
+}
 
 int main()
 {
-	readMatrix();
-	// calculateMap();
-	output << a[m][m];
+	initializeFirstRowAndFirstColumn();
+	initializeRestOfMatrix();
+	output << a[m][m] << endl;
+	calculateMap();
+
 	return 0;
 }
