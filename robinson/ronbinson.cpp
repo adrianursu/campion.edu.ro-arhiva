@@ -15,7 +15,7 @@ void initializeFirstRowAndFirstColumn()
 	for (int i = 1; i <= m; i++)
 	{
 		a[i][1] = n + i - 1;
-		a[1][i] = n + i - 1;
+		a[1][i] = a[i][1];
 	}
 
 	input.close();
@@ -32,9 +32,9 @@ void initializeRestOfMatrix()
 	}
 }
 
-void modifyPosition(int temporary)
+void modifyPosition(int nrGains)
 {
-	switch (temporary % 4)
+	switch (nrGains % 4)
 		{
 		case 0:
 			l--;
