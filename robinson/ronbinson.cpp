@@ -5,7 +5,8 @@ using namespace std;
 ifstream input("robinson.in");
 ofstream output("robinson.out");
 
-int m, n, a[21][21], c, l;
+int m, n, c, l;
+int a[21][21];
 
 void initializeFirstRowAndFirstColumn()
 {
@@ -16,6 +17,8 @@ void initializeFirstRowAndFirstColumn()
 		a[i][1] = n + i - 1;
 		a[1][i] = n + i - 1;
 	}
+
+	input.close();
 }
 
 void initializeRestOfMatrix()
@@ -29,18 +32,9 @@ void initializeRestOfMatrix()
 	}
 }
 
-void calculateMap()
+void modifyPosition(int temporary)
 {
-	int temp;
-
-	while (l <= m && l > 0 && c <= m && c > 0 && a[l][c] > 0)
-	{
-		output << l << " " << c << endl;
-
-		temp = a[l][c];
-		a[l][c] = -1;
-
-		switch (temp % 4)
+	switch (temporary % 4)
 		{
 		case 0:
 			l--;
@@ -55,7 +49,23 @@ void calculateMap()
 			c--;
 			break;
 		}
+}
+
+void outputPositions()
+{
+	int temp;
+
+	while (l <= m && l > 0 && c <= m && c > 0 && a[l][c] > 0)
+	{
+		output << l << " " << c << endl;
+
+		temp = a[l][c];
+		a[l][c] = -1;
+		
+		modifyPosition(temp);
 	}
+
+	output.close();
 }
 
 int main()
@@ -63,7 +73,7 @@ int main()
 	initializeFirstRowAndFirstColumn();
 	initializeRestOfMatrix();
 	output << a[m][m] << endl;
-	calculateMap();
+	outputPositions();
 
 	return 0;
 }
