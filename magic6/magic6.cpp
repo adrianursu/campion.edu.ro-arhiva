@@ -9,7 +9,7 @@ char character;
 int n;
 int frequencyVector[10] = {};
 
-void verifyIfItsIntegerOrChar()
+void processCharacters()
 {
 	if (character > 47 && character < 58)
 	{
@@ -17,67 +17,71 @@ void verifyIfItsIntegerOrChar()
 	}
 	else
 	{
-		character = (char)(character - 32);
-		output << character;
+		output << (char)(character - 32);
 	}
 }
 
-void writeNumbers()
+void verifyFirstDigitAfter0(int &position)
+{
+	int i = 1;
+
+	while (position < 0)
+	{
+		if (frequencyVector[i] == 1)
+		{
+			position = i;
+		}
+		else
+		{
+			i++;
+		}
+	}
+	output << position << 0;
+}
+
+void outputNumbers(int &index)
+{
+	for (int i = index + 1; i < 10; i++)
+	{
+		if (frequencyVector[i] == 1)
+		{
+			output << i;
+		}
+	}
+}
+
+void processNumbers()
 {
 	int poz = -1;
-	int i = 1;
+	int k = 0;
 
 	if (frequencyVector[0] == 1)
 	{
-
-		while (poz < 0)
-		{
-			if (frequencyVector[i] == 1)
-			{
-				poz = i;
-			}
-			else
-			{
-				i++;
-			}
-		}
-		output << poz << 0;
-		for (int i = poz + 1; i < 10; i++)
-		{
-			if (frequencyVector[i] == 1)
-			{
-				output << i;
-			}
-		}
+		verifyFirstDigitAfter0(poz);
+		outputNumbers(poz);
 	}
 	else
 	{
-		for (int i = 1; i < 10; i++)
-		{
-			if (frequencyVector[i] == 1)
-			{
-				output << i;
-			}
-		}
+		outputNumbers(k);
 	}
 }
 
-void readAndWriteLetters()
+void read()
 {
 	input >> n;
 
 	for (int i = 1; i <= n; i++)
 	{
 		input >> character;
-		verifyIfItsIntegerOrChar();
+		processCharacters();
 	}
 }
 
 int main()
 {
-	readAndWriteLetters();
+	read();
 	output << endl;
-	writeNumbers();
+	processNumbers();
 
 	return 0;
 }
