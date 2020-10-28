@@ -56,7 +56,7 @@ void outputNumbers(int index)
 
 void processNumbers()
 {
-    int position;
+    int position = 0;
 
     if (frequencyVector[0] == 1)
     {
